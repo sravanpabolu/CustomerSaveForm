@@ -14,13 +14,17 @@ class ViewController: UIViewController {
     
     var segmentedControl : UISegmentedControl = {
         let segCtrl = UISegmentedControl(items : [Constants.segmentItem1, Constants.segmentItem2])
+       
+        UISegmentedControl.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
+        UISegmentedControl.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .normal)
+
+//        UISegmentedControl.appearance().setTitleTextAttributes([kCTForegroundColorAttributeName as NSAttributedString.Key : UIColor.black], for: .normal)
         segCtrl.translatesAutoresizingMaskIntoConstraints = false
         segCtrl.selectedSegmentIndex = 0
         segCtrl.layer.cornerRadius = 5.0
+        segCtrl.addTarget(self, action: #selector(segmentChanged(_:)), for: .valueChanged)
         return segCtrl
     }()
-    
-    let someView = UIView()
     
     let btnCompare : UIButton = {
         let btn = UIButton()
@@ -54,12 +58,7 @@ class ViewController: UIViewController {
     private func designUI() {
         self.view.backgroundColor = UIColor.lightGray
         
-//        self.someView.backgroundColor = UIColor.green
-        self.someView.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(self.someView)
-        
-        self.segmentedControl.addTarget(self, action: #selector(self.segmentChanged(_:)), for: .valueChanged)
-        self.someView.addSubview(self.segmentedControl)
+        self.view.addSubview(self.segmentedControl)
         
         self.addTableView()
         
@@ -83,7 +82,7 @@ class ViewController: UIViewController {
             withVisualFormat: "H:|-10-[view]-10-|",
             options: NSLayoutConstraint.FormatOptions.init(rawValue: 0),
             metrics: nil,
-            views: ["view": self.someView])
+            views: ["view": self.segmentedControl])
         
         let tblViewConstraintH = NSLayoutConstraint.constraints(
             withVisualFormat: "H:|-10-[view]-10-|",
@@ -102,36 +101,18 @@ class ViewController: UIViewController {
             options: NSLayoutConstraint.FormatOptions.init(rawValue: 0),
             metrics: nil,
             views: ["view": self.resultTxtView])
-        
-        let segmentConstraintH = NSLayoutConstraint.constraints(
-//            withVisualFormat: "H:[segmentedControl]",
-//            withVisualFormat: "H:[view]-(<=1)-[segmentedControl]",
-            withVisualFormat: "H:|-(>=20)-[segmentedControl(==200)]-(>=20)-|",
-            options: NSLayoutConstraint.FormatOptions.alignAllCenterX,
-            metrics: nil,
-            views: ["segmentedControl" : self.segmentedControl,
-//                    "view" : self.someView
-                    ])
-        
-        let segmentConstraintV = NSLayoutConstraint.constraints(
-            withVisualFormat: "V:|[segmentedControl]|",
-            options: NSLayoutConstraint.FormatOptions.init(rawValue: 0),
-            metrics: nil,
-            views: ["segmentedControl":self.segmentedControl])
 
         let viewConstraintV = NSLayoutConstraint.constraints(
             withVisualFormat: "V:|-50-[view]-10-[tblView(350)]-10-[btnCompare(30)]-10-[txtViewResult]-50-|",
             options: NSLayoutConstraint.FormatOptions.init(rawValue: 0),
             metrics: nil,
             views: [
-                "view": self.someView,
+                "view": self.segmentedControl,
                 "tblView" : self.tableView,
                 "btnCompare" : self.btnCompare,
                 "txtViewResult" : self.resultTxtView
             ])
         
-        self.view.addConstraints(segmentConstraintH)
-        self.view.addConstraints(segmentConstraintV)
         self.view.addConstraints(someViewConstraintH)
         self.view.addConstraints(tblViewConstraintH)
         self.view.addConstraints(btnCompareViewConstraintH)
