@@ -30,7 +30,7 @@ class ViewController: UIViewController {
         return txtView
     }()
     
-    let tblItems = ["First Name", "Last Name", "Nick Name", "Address"]
+    let tblItems = Constants.tableItems
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +56,7 @@ class ViewController: UIViewController {
     }
 
     private func addSegmentControl() {
-        let items = ["Customer 1" , "Customer 2"]
+        let items = [Constants.segmentItem1, Constants.segmentItem2]
         self.segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         self.segmentedControl = UISegmentedControl(items : items)
         self.segmentedControl.selectedSegmentIndex = 0

@@ -16,4 +16,9 @@ class Constants {
     static let btnTitleCompare = "Compare Customer 1/ Customer 2"
     
     static let txtViewResultText = "Result of the comparision is: "
+    
+    static let segmentItem1 = "Customer 1"
+    static let segmentItem2 = "Customer 2"
+    
+    static let tableItems = ["First Name", "Last Name", "Nick Name", "Address"]
 }
