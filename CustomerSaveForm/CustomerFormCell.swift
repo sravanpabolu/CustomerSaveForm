@@ -27,6 +27,9 @@ class CustomerFormCell: UITableViewCell {
     
     lazy var signUpBtn : UIButton = {
         let btn = UIButton()
+        btn.layer.borderColor = UIColor.black.cgColor
+        btn.layer.borderWidth = 2
+        btn.layer.cornerRadius = 5
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setTitle(Constants.btnTitleSignUP, for: .normal)
         btn.setTitleColor(UIColor.black, for: .normal)
@@ -37,23 +40,6 @@ class CustomerFormCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: String.init(describing: CustomerFormCell.self))
-        
-//        addSubview(lblTitle)
-//        addSubview(txtField)
-//
-//        let lblH = NSLayoutConstraint.constraints(
-//            withVisualFormat: "H:|-5-[lbl]-5-|",
-//            options: NSLayoutConstraint.FormatOptions.init(rawValue: 0),
-//            metrics: nil,
-//            views: ["lbl": lblTitle])
-//        let lblV = NSLayoutConstraint.constraints(
-//            withVisualFormat: "V:|-5-[lbl]-5-|",
-//            options: NSLayoutConstraint.FormatOptions.init(rawValue: 0),
-//            metrics: nil,
-//            views: ["lbl": lblTitle])
-//
-//        addConstraints(lblH)
-//        addConstraints(lblV)
         
         let stackView = UIStackView(arrangedSubviews: [lblTitle, txtField])
         stackView.axis = .horizontal
@@ -68,17 +54,6 @@ class CustomerFormCell: UITableViewCell {
         btnPlusFieldsStackView.distribution = .equalSpacing
         btnPlusFieldsStackView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(btnPlusFieldsStackView)
-        
-//        let lblH = NSLayoutConstraint.constraints(
-//            withVisualFormat: "H:|-5-[view]-5-|",
-//            options: NSLayoutConstraint.FormatOptions.init(rawValue: 0),
-//            metrics: nil,
-//            views: ["view": stackView])
-//        let lblV = NSLayoutConstraint.constraints(
-//            withVisualFormat: "V:|-5-[view]-5-|",
-//            options: NSLayoutConstraint.FormatOptions.init(rawValue: 0),
-//            metrics: nil,
-//            views: ["view": stackView])
 
         let lblH = NSLayoutConstraint.constraints(
             withVisualFormat: "H:|-5-[view]-5-|",
@@ -93,8 +68,6 @@ class CustomerFormCell: UITableViewCell {
         
         addConstraints(lblH)
         addConstraints(lblV)
-        
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -104,5 +77,4 @@ class CustomerFormCell: UITableViewCell {
     @objc private func btnSignupTapped() {
         DLog(object: "Signup btn tapped")
     }
-
 }

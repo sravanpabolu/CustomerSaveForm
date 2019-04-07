@@ -15,6 +15,9 @@ class ViewController: UIViewController {
     let tableView = UITableView()
     let btnCompare : UIButton = {
         let btn = UIButton()
+        btn.layer.borderColor = UIColor.black.cgColor
+        btn.layer.borderWidth = 2
+        btn.layer.cornerRadius = 5 
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setTitleColor(UIColor.black, for: .normal)
         btn.setTitle(Constants.btnTitleCompare, for: .normal)
