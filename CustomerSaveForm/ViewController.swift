@@ -12,13 +12,14 @@ class ViewController: UIViewController {
 
     let tableView = UITableView()
     
+    let viewModel = CustomerFormViewModel()
+    
     var segmentedControl : UISegmentedControl = {
         let segCtrl = UISegmentedControl(items : [Constants.segmentItem1, Constants.segmentItem2])
        
         UISegmentedControl.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
         UISegmentedControl.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .normal)
 
-//        UISegmentedControl.appearance().setTitleTextAttributes([kCTForegroundColorAttributeName as NSAttributedString.Key : UIColor.black], for: .normal)
         segCtrl.translatesAutoresizingMaskIntoConstraints = false
         segCtrl.selectedSegmentIndex = 0
         segCtrl.layer.cornerRadius = 5.0
@@ -46,8 +47,6 @@ class ViewController: UIViewController {
         return txtView
     }()
     
-    let tblItems = Constants.tableItems
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -65,7 +64,6 @@ class ViewController: UIViewController {
         self.view.addSubview(btnCompare)
         self.view.addSubview(resultTxtView)
     }
-    
     
     private func addTableView() {
 //        self.tableView.backgroundColor = UIColor.blue
@@ -135,42 +133,27 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return Constants.tblHeader
+        return self.viewModel.getTableHeader()
     }
     
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return Constants.tblFooter
+        return self.viewModel.getTableFooter()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tblItems.count + 1
+        return self.viewModel.tblItems.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: String.init(describing: CustomerFormCell.self), for: indexPath) as! CustomerFormCell
-        
-        if indexPath.row < tblItems.count {
-            cell.lblTitle.isHidden = false
-            cell.txtField.isHidden = false
-            cell.signUpBtn.isHidden = true
-            cell.lblTitle.text = tblItems[indexPath.row]
-            cell.txtField.tag = indexPath.row
-        } else if indexPath.row == tblItems.count {
-            cell.lblTitle.isHidden = true
-            cell.txtField.isHidden = true
-            cell.signUpBtn.isHidden = false
-        }
-        
-        
-        
+        self.viewModel.constructCell(indexPath, cell)
         return cell
     }
 }
 
 extension ViewController: UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
     }

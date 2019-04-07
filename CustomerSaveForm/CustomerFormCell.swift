@@ -9,6 +9,7 @@
 import UIKit
 
 class CustomerFormCell: UITableViewCell {
+    
     lazy var lblTitle : UILabel  = {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false

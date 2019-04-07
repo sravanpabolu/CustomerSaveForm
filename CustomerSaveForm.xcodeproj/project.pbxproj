@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		A065AF3A2257E12200B6E701 /* CustomerFormCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A065AF392257E12200B6E701 /* CustomerFormCell.swift */; };
 		A065AF3C22593E4C00B6E701 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A065AF3B22593E4C00B6E701 /* Constants.swift */; };
+		A065AF3E225A8BCC00B6E701 /* CustomerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A065AF3D225A8BCC00B6E701 /* CustomerModel.swift */; };
+		A065AF40225A8F3E00B6E701 /* CustomerFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A065AF3F225A8F3E00B6E701 /* CustomerFormViewModel.swift */; };
 		A067C8F32255D484006277A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A067C8F22255D484006277A1 /* AppDelegate.swift */; };
 		A067C8F52255D484006277A1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A067C8F42255D484006277A1 /* ViewController.swift */; };
 		A067C8F82255D484006277A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A067C8F62255D484006277A1 /* Main.storyboard */; };
@@ -21,6 +23,8 @@
 /* Begin PBXFileReference section */
 		A065AF392257E12200B6E701 /* CustomerFormCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerFormCell.swift; sourceTree = "<group>"; };
 		A065AF3B22593E4C00B6E701 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		A065AF3D225A8BCC00B6E701 /* CustomerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerModel.swift; sourceTree = "<group>"; };
+		A065AF3F225A8F3E00B6E701 /* CustomerFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerFormViewModel.swift; sourceTree = "<group>"; };
 		A067C8EF2255D484006277A1 /* CustomerSaveForm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomerSaveForm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A067C8F22255D484006277A1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A067C8F42255D484006277A1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -64,6 +68,7 @@
 			children = (
 				A067C8F22255D484006277A1 /* AppDelegate.swift */,
 				A067C8F42255D484006277A1 /* ViewController.swift */,
+				A065AF3F225A8F3E00B6E701 /* CustomerFormViewModel.swift */,
 				A065AF392257E12200B6E701 /* CustomerFormCell.swift */,
 				A067C9072255D64D006277A1 /* Utils.swift */,
 				A065AF3B22593E4C00B6E701 /* Constants.swift */,
@@ -72,6 +77,7 @@
 				A067C8FE2255D486006277A1 /* LaunchScreen.storyboard */,
 				A067C9012255D486006277A1 /* Info.plist */,
 				A067C8F92255D484006277A1 /* CustomerSaveForm.xcdatamodeld */,
+				A065AF3D225A8BCC00B6E701 /* CustomerModel.swift */,
 			);
 			path = CustomerSaveForm;
 			sourceTree = "<group>";
@@ -147,10 +153,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A065AF40225A8F3E00B6E701 /* CustomerFormViewModel.swift in Sources */,
 				A067C8F52255D484006277A1 /* ViewController.swift in Sources */,
 				A067C8FB2255D484006277A1 /* CustomerSaveForm.xcdatamodeld in Sources */,
 				A067C8F32255D484006277A1 /* AppDelegate.swift in Sources */,
 				A065AF3A2257E12200B6E701 /* CustomerFormCell.swift in Sources */,
+				A065AF3E225A8BCC00B6E701 /* CustomerModel.swift in Sources */,
 				A067C9082255D64D006277A1 /* Utils.swift in Sources */,
 				A065AF3C22593E4C00B6E701 /* Constants.swift in Sources */,
 			);

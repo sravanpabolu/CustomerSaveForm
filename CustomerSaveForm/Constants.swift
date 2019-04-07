@@ -20,5 +20,10 @@ class Constants {
     static let segmentItem1 = "Customer 1"
     static let segmentItem2 = "Customer 2"
     
-    static let tableItems = ["First Name", "Last Name", "Nick Name", "Address"]
+    static let tblItemFirstName = "First Name"
+    static let tblItemLastName = "Last Name"
+    static let tblItemNickName = "Nick Name"
+    static let tblItemAddress = "Address"
+    
+    
 }
