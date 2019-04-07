@@ -10,9 +10,18 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var segmentedControl = UISegmentedControl()
-    let someView = UIView()
     let tableView = UITableView()
+    
+    var segmentedControl : UISegmentedControl = {
+        let segCtrl = UISegmentedControl(items : [Constants.segmentItem1, Constants.segmentItem2])
+        segCtrl.translatesAutoresizingMaskIntoConstraints = false
+        segCtrl.selectedSegmentIndex = 0
+        segCtrl.layer.cornerRadius = 5.0
+        return segCtrl
+    }()
+    
+    let someView = UIView()
+    
     let btnCompare : UIButton = {
         let btn = UIButton()
         btn.layer.borderColor = UIColor.black.cgColor
@@ -39,45 +48,25 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         self.designUI()
+        self.addConstraintsToView()
     }
     
     private func designUI() {
         self.view.backgroundColor = UIColor.lightGray
         
-        self.addSomeView()
-        self.addSegmentControl()
+//        self.someView.backgroundColor = UIColor.green
+        self.someView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(self.someView)
+        
+        self.segmentedControl.addTarget(self, action: #selector(self.segmentChanged(_:)), for: .valueChanged)
+        self.someView.addSubview(self.segmentedControl)
+        
         self.addTableView()
-        self.addFooterView()
-        self.addConstraintsToView()
+        
+        self.view.addSubview(btnCompare)
+        self.view.addSubview(resultTxtView)
     }
     
-    private func addSomeView() {
-        self.someView.backgroundColor = UIColor.green
-        self.someView.translatesAutoresizingMaskIntoConstraints = false
-        
-        self.view.addSubview(self.someView)
-    }
-
-    private func addSegmentControl() {
-        let items = [Constants.segmentItem1, Constants.segmentItem2]
-        self.segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        self.segmentedControl = UISegmentedControl(items : items)
-        self.segmentedControl.selectedSegmentIndex = 0
-//        self.segmentedControl.center = self.someView.center
-//        self.segmentedControl.addTarget(self, action: #selector(ViewController.indexChanged(_:)), for: .valueChanged)
-        
-        self.segmentedControl.layer.cornerRadius = 5.0
-        self.segmentedControl.backgroundColor = .red
-        self.segmentedControl.tintColor = .yellow
-        
-//        self.view.addSubview(self.segmentedControl)
-//        self.segmentedControl.setTitle("Customer 1", forSegmentAt: 0)
-//        self.segmentedControl.setTitle("Customer 2", forSegmentAt: 1)
-
-        self.segmentedControl.addTarget(self, action: #selector(self.segmentChanged(_:)), for: .valueChanged)
-
-        self.someView.addSubview(self.segmentedControl)
-    }
     
     private func addTableView() {
 //        self.tableView.backgroundColor = UIColor.blue
@@ -86,13 +75,7 @@ class ViewController: UIViewController {
         self.tableView.register(CustomerFormCell.self, forCellReuseIdentifier: String.init(describing: CustomerFormCell.self))
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        
         self.view.addSubview(self.tableView)
-    }
-    
-    private func addFooterView() {
-        self.view.addSubview(btnCompare)
-        self.view.addSubview(resultTxtView)
     }
     
     private func addConstraintsToView() {
