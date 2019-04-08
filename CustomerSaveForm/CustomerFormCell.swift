@@ -8,12 +8,16 @@
 
 import UIKit
 
+protocol CustomerFormCellDelegate {
+    func signUPBtnTapped()
+}
+
 class CustomerFormCell: UITableViewCell {
+    var delegate: CustomerFormCellDelegate?
     
     lazy var lblTitle : UILabel  = {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
-//        lbl.backgroundColor = UIColor.gray
         lbl.text = "Custom Label"
         return lbl
     }()
@@ -21,7 +25,6 @@ class CustomerFormCell: UITableViewCell {
     lazy var txtField : UITextField = {
         let txtFld = UITextField()
         txtFld.translatesAutoresizingMaskIntoConstraints = false
-//        txtFld.backgroundColor = UIColor.green
         txtFld.placeholder = "Enter some value"
         return txtFld
     }()
@@ -76,6 +79,6 @@ class CustomerFormCell: UITableViewCell {
     }
     
     @objc private func btnSignupTapped() {
-        DLog(object: "Signup btn tapped")
+        self.delegate?.signUPBtnTapped()
     }
 }

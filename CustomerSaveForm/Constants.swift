@@ -17,6 +17,9 @@ class Constants {
     
     static let txtViewResultText = "Result of the comparision is: "
     
+    static let txtEqual = "Both are equal"
+    static let txtNotEqual = "Both are not equal"
+    
     static let segmentItem1 = "Customer 1"
     static let segmentItem2 = "Customer 2"
     
@@ -25,5 +28,6 @@ class Constants {
     static let tblItemNickName = "Nick Name"
     static let tblItemAddress = "Address"
     
-    
+    static let keyCustomerOne = "CustomerOne"
+    static let keyCustomerTwo = "CustomerTwo"
 }

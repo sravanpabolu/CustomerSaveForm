@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     var segmentedControl : UISegmentedControl = {
         let segCtrl = UISegmentedControl(items : [Constants.segmentItem1, Constants.segmentItem2])
        
-        UISegmentedControl.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
+    UISegmentedControl.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
         UISegmentedControl.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .normal)
 
         segCtrl.translatesAutoresizingMaskIntoConstraints = false
@@ -29,11 +29,13 @@ class ViewController: UIViewController {
     
     let btnCompare : UIButton = {
         let btn = UIButton()
+        btn.isEnabled = false
         btn.layer.borderColor = UIColor.black.cgColor
         btn.layer.borderWidth = 2
         btn.layer.cornerRadius = 5 
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setTitleColor(UIColor.black, for: .normal)
+        btn.setTitleColor(UIColor.gray, for: .disabled)
         btn.setTitle(Constants.btnTitleCompare, for: .normal)
         btn.backgroundColor = UIColor.lightGray
         btn.addTarget(self, action: #selector(btnCompareTapped), for: .touchUpInside)
@@ -52,6 +54,7 @@ class ViewController: UIViewController {
         
         self.designUI()
         self.addConstraintsToView()
+        self.viewModel.clearUserDefaults()
     }
     
     private func designUI() {
@@ -66,9 +69,9 @@ class ViewController: UIViewController {
     }
     
     private func addTableView() {
-//        self.tableView.backgroundColor = UIColor.blue
         self.tableView.dataSource = self
         self.tableView.delegate = self
+        self.tableView.isScrollEnabled = false
         self.tableView.register(CustomerFormCell.self, forCellReuseIdentifier: String.init(describing: CustomerFormCell.self))
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -119,16 +122,17 @@ class ViewController: UIViewController {
     }
     
     @objc private func segmentChanged(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            DLog(object: "Customer 1")
-        default:
-            DLog(object: "Customer 2")
-        }
+        self.tableView.reloadData()
     }
     
     @objc private func btnCompareTapped() {
-        DLog(object: "Btn Compare tapped")
+        let status = self.viewModel.compareCustomerData()
+        
+        if status == true {
+            self.resultTxtView.text = Constants.txtEqual
+        } else {
+            self.resultTxtView.text = Constants.txtNotEqual
+        }
     }
 }
 
@@ -148,6 +152,7 @@ extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String.init(describing: CustomerFormCell.self), for: indexPath) as! CustomerFormCell
+        cell.delegate = self
         self.viewModel.constructCell(indexPath, cell)
         return cell
     }
@@ -156,5 +161,32 @@ extension ViewController: UITableViewDataSource {
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
+    }
+}
+
+extension ViewController: CustomerFormCellDelegate {
+    func signUPBtnTapped() {
+        var custData = [String]()
+        
+        //get values from text fields
+        for index in 0..<self.viewModel.tblItems.count {
+            let indexPath = IndexPath(row: index, section: 0)
+            if let cell:CustomerFormCell = self.tableView.cellForRow(at: indexPath) as? CustomerFormCell,
+                let cellText: String = cell.txtField.text {
+                custData.append(cellText)
+            }
+        }
+        
+        self.viewModel.processAndSaveCustomerData(for: self.segmentedControl.selectedSegmentIndex, customerData: custData)
+        
+        self.viewModel.retrieveCustomerData { (customerOne, customerTwo) in
+            DLog(object: customerOne as Any)
+            DLog(object: customerTwo as Any)
+            
+            guard !customerOne.isEmpty else { return }
+            guard !customerTwo.isEmpty else { return }
+            
+            self.btnCompare.isEnabled = true
+        }
     }
 }
